@@ -1,0 +1,15 @@
+import { IsOptional, IsString } from 'class-validator';
+export class GetAuctionQuery {
+  @IsOptional()
+  @IsString()
+  state: string;
+
+  //Commented as category are not yet active.
+  // @IsOptional()
+  // @IsString()
+  // category: string;
+
+  @IsOptional()
+  @IsString()
+  owner: string;
+}

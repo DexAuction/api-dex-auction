@@ -1,0 +1,1 @@
+export const MEMBER_METATADATA_DOCTYPE = 'io.biglife.resources.member';
