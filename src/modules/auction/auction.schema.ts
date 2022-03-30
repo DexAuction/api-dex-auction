@@ -18,9 +18,6 @@ export class Auction {
   @Prop({ required: true })
   assetTokenId: string;
 
-  @Prop()
-  assetMetadataURL: string;
-
   // Commented as Collections are not yet active.
   // @Prop()
   // collectionId: ObjectID;

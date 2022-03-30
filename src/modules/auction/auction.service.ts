@@ -22,7 +22,6 @@ export class AuctionService {
       const auctionResponse: GetAuctionResponseModel = {
         auctionId: queryResponse.auctionId,
         auctionType: queryResponse.auctionType,
-        assetMetadataURL: queryResponse.assetMetadataURL,
         assetTokenId: queryResponse.assetTokenId,
         seller: queryResponse.seller,
         buyer: queryResponse.buyer,
@@ -55,7 +54,6 @@ export class AuctionService {
       const auctionResponse: GetAuctionResponseModel = {
         auctionId: queryResponse[i].auctionId,
         auctionType: queryResponse[i].auctionType,
-        assetMetadataURL: queryResponse[i].assetMetadataURL,
         assetTokenId: queryResponse[i].assetTokenId,
         seller: queryResponse[i].seller,
         buyer: queryResponse[i].buyer,
