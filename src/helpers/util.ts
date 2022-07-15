@@ -6,7 +6,7 @@ import axiosRetry from 'axios-retry';
 export class APIUtil {
   constructor() {}
 
-  async sendPostRequestToHF(
+  async sendPostRequest(
     data: any,
     url: string
   ): Promise<any> {
@@ -24,7 +24,7 @@ export class APIUtil {
     return rs.data;
   }
 
-  async sendGetRequestToHF(url: string, params): Promise<any> {
+  async sendGetRequest(url: string, params): Promise<any> {
 
 
     axiosRetry(axios, {

@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AssetModule } from './modules/asset/asset.module';
 import { AuctionModule } from './modules/auction/auction.module';
+import { ClientAuthTokenModule } from './modules/authentication/clientAuthToken.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { AuctionModule } from './modules/auction/auction.module';
     }),
     AuctionModule,
     AssetModule,
+    ClientAuthTokenModule
   ],
   controllers: [],
   providers: [],

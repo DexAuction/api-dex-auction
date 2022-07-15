@@ -30,54 +30,6 @@ export class DetailMessage {
   description?: string;
 }
 
-export class ApplicationError extends Error {
-  public name: string;
-
-  public message: string;
-
-  public description: string;
-
-  public httpCode: number;
-
-  public errorCode: string;
-
-  constructor(
-    message: string,
-    description: string,
-    httpCode: number,
-    errorCode: string
-  ) {
-    super(message);
-    Error.captureStackTrace(this, this.constructor);
-
-    this.httpCode = httpCode || 500;
-    this.errorCode = errorCode || '';
-    this.name = 'ChainCodeError';
-    this.description = description || '';
-
-    this.message = JSON.stringify({
-      message: this.message,
-      httpCode: this.httpCode,
-      errorCode: this.errorCode,
-      name: this.name,
-      description: this.description,
-    });
-  }
-}
-
-// DomainError
-const makeError = (message: string) => (
-  detail: DetailMessage,
-  httpCode?: number
-) => {
-  return new ApplicationError(
-    message,
-    detail.description,
-    httpCode,
-    detail.code
-  );
-};
-
 export default {
   // HTTP Error Codes
   HTTP_ERROR_CODE_BAD_REQUEST,
@@ -92,13 +44,4 @@ export default {
   ERROR_EMPTY_DATA,
   ERROR_MISSING_REQUIRED_FIELDS,
   ERROR_DATABASE_INSERTION,
-  // Commands
-  CommandBadPayLoad: makeError('io.dexa.errors.command_bad_payload'),
-  CommandForbidden: makeError('io.dexa.errors.command_forbidden'),
-  CommandMethodNotAllowed: makeError(
-    'io.dexa.errors.command_method_not_allowed'
-  ),
-  CommandInternalServerError: makeError(
-    'io.dexa.errors.command_internal_server_error'
-  ),
 };
