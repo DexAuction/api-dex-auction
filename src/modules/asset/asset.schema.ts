@@ -1,36 +1,52 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 export type AssetDocument = Asset & Document;
-@Schema({ collection: 'Asset' })
+@Schema({ collection: 'assets' })
 export class Asset {
-  @Prop({ required: true, unique: true })
-  assetTokenId: string;
+  @Prop({ required: true })
+  assetTokenId: Number;
 
   @Prop()
-  mintedAt: Date;
+  mintedAt: String;
+  @Prop()
+  assetContractAddress: String;
 
   @Prop()
-  nsfw: Boolean;
+  mintedBy: String;
 
   @Prop()
-  metadataURL: string;
+  name: String;
 
   @Prop()
-  assetcontractaddress: string;
+  description: String;
+
+  @Prop()
+  image: String;
+
+  @Prop()
+  external_url: String;
+
+  @Prop({ type: JSON })
+  attributes: object;
+
+  @Prop()
+  metadataURL: String;
+
+  @Prop()
+  background_color: String;
+
+  @Prop()
+  background_image: String;
+
+  @Prop({ type: JSON })
+  metadataJSON: object;
+
+  @Prop()
+  NFTCollection: String;
+  // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Collection' })
+  // collectionId: string; //object id of collection schema
 
   @Prop()
   owner: string;
 }
 export const AssetSchema = SchemaFactory.createForClass(Asset);
-
-//seeder for development
-/*
-{"_id":{"$oid":"623178ff72d178528bacfbfa"},
-"assetTokenId":0,  
-"mintedAt":"ENGLISH",
-"nsfw":"false",
-"metadataURL":"100",
-"assetcontractaddress":"ipfs://11ww3",
-"owner":"cryptopunks",
-}
-*/

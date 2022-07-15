@@ -15,5 +15,5 @@ export class GetAssetByFilter {
 
   @IsOptional()
   @IsString()
-  assetcontractaddress: string;
+  assetContractAddress: string;
 }
