@@ -1,35 +1,39 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { DutchAuctionAttribute } from './DutchAuctionAttribute';
+import { EnglishAuctionAttribute } from './EnglishAuctionAttribute';
+import { SealedBidAuctionAttribute } from './SealedBidAuctionAttribute';
+import { VickeryAuctionAttribute } from './VickeryAuctionAttribute';
 export type AuctionDocument = Auction & Document;
-@Schema({ collection: 'Auction' })
+@Schema({ collection: 'auctions' })
 export class Auction {
   @Prop({ required: true, unique: true })
-  auctionId: string; //data type ??
+  auctionId: Number;
 
   @Prop({
     required: true,
-    enum: ['FPL', 'DUTCH', 'ENGLISH', 'SEALED-BID', 'VICKERY'],
+    enum: ['fpl', 'dutch', 'english', 'sealed-bid', 'vickery'],
   })
-  auctionType: string;
+  auctionType: String;
 
   @Prop({ required: true })
-  tokenContract: string;
+  tokenContract: String;
 
   @Prop({ required: true })
-  assetTokenId: string;
+  assetTokenId: Number;
 
   // Commented as Collections are not yet active.
   // @Prop()
   // collectionId: ObjectID;
 
   @Prop()
-  seller: string;
+  seller: String;
 
   @Prop()
-  buyer: string;
+  buyer: String;
 
-  @Prop()
-  bidders: Array<String>;
+  @Prop({ required: false })
+  bidders?: Array<String>;
 
   // Commented as category are not yet active.
   // @Prop()
@@ -49,22 +53,39 @@ export class Auction {
       'EXPIRED',
     ],
   })
-  state: string;
+  state: String;
+
+  @Prop({
+    type: Object,
+    required: function() {
+      return this.auctionType === 'english';
+    },
+  })
+  englishAuctionAttribute?: EnglishAuctionAttribute;
+
+  @Prop({
+    type: Object,
+    required: function() {
+      return this.auctionType === 'dutch';
+    },
+  })
+  dutchAuctionAttribute?: DutchAuctionAttribute;
+
+  // @Prop({
+  //   type: Object,
+  //   required: function() {
+  //     return this.auctionType === 'sealed-bid';
+  //   },
+  // })
+  // SealedBidAuctionAttr?: SealedBidAuctionAttribute;
+
+  // @Prop({
+  //   type: Object,
+  //   required: function() {
+  //     return this.auctionType === 'vickery';
+  //   },
+  // })
+  // VickeryBidAuctionAttr?: VickeryAuctionAttribute;
 }
+
 export const AuctionSchema = SchemaFactory.createForClass(Auction);
-
-//seeder for development
-/*
-
-{"_id":{"$oid":"623178ff72d178528bacfbfa"},
-"auctionId":0,  
-"auctionType":"ENGLISH",
-"tokenContract":"x0sddd2333233dccccccsqwsswseee",
-"assetTokenId":"100",
-"assetMetadataURL":"ipfs://11ww3",
-"seller":"cryptopunks",
-"buyer":"opensea",
-"state":"NOT-STARTED",
-,"__v":0}
-
-*/
