@@ -9,7 +9,7 @@ export class AssetController {
   constructor(private assetService: AssetService) {}
   @Get('assets-by-filter')
   @UseGuards(ValidationGuard)
-  getAuctions(
+  getAsset(
     @Query() query: GetAssetByFilter
   ): Promise<Array<GetAssetResponseModel>> {
     return this.assetService.getAssets(query);
