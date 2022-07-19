@@ -1,16 +1,18 @@
 export interface GetAssetResponseModel {
-  assetContractAddress :string;
-  assetTokenId: string;
+  assetContractAddress: String;
+  assetTokenId: Number;
   mintedAt: Date;
-  metadataURL: string;
-  external_url :string;
-  metadataJSON : Object;
+  metadataURL: String;
+  external_url: String;
+  metadataJSON: Object;
   attributes: Object;
-  background_color: string;
-  background_image : string;
-  owner: string;
-  mintedBy: string;
-  name : string;
-  image : string,
-  description:string
+  background_color: String;
+  background_image: String;
+  owner: String;
+  mintedBy: String;
+  name: String;
+  image: String;
+  description: String;
 }
+
+// Needed to form wrapper objets in place of primitive data types
