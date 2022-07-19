@@ -7,7 +7,7 @@ export class Asset {
   assetTokenId: Number;
 
   @Prop()
-  mintedAt: String;
+  mintedAt: Date;
   @Prop()
   assetContractAddress: String;
 
