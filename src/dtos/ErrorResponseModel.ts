@@ -1,4 +1,4 @@
-import { DetailMessage } from 'src/errors';
+import { DetailMessage } from "src/errors";
 
 export interface ErrorResponseModel {
   memberId?: number;

@@ -1,21 +1,21 @@
-import { Injectable, Logger } from '@nestjs/common';
-import * as _ from 'lodash';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { GetAuctionQuery } from './getAuctionQuery';
-import { Auction, AuctionDocument } from './auction.schema';
-import { GetAuctionResponseModel } from 'src/dtos/GetAuctionResponseModel';
+import { Injectable, Logger } from "@nestjs/common";
+import * as _ from "lodash";
+import { Model } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
+import { GetAuctionQuery } from "./getAuctionQuery";
+import { Auction, AuctionDocument } from "./auction.schema";
+import { GetAuctionResponseModel } from "src/dtos/GetAuctionResponseModel";
 @Injectable()
 export class AuctionService {
   constructor(
     @InjectModel(Auction.name)
-    private auction: Model<AuctionDocument>,
+    private auction: Model<AuctionDocument>
   ) {}
 
   async getAuctionById(auction_id: Number): Promise<GetAuctionResponseModel> {
     try {
       const queryResponse = await this.auction.findOne({
-        auctionId: auction_id,
+        auctionId: auction_id
       });
       const auctionResponse: GetAuctionResponseModel = {
         auctionId: queryResponse.auctionId,
@@ -24,9 +24,9 @@ export class AuctionService {
         seller: queryResponse.seller,
         buyer: queryResponse.buyer,
         tokenContract: queryResponse.tokenContract,
-        state: queryResponse.state,
+        state: queryResponse.state
       };
-      if (queryResponse.auctionType == 'english') {
+      if (queryResponse.auctionType == "english") {
         auctionResponse.EnglishAuctionAttribute = {
           opening_price: queryResponse.englishAuctionAttribute.opening_price,
           min_increment: queryResponse.englishAuctionAttribute.min_increment,
@@ -39,9 +39,9 @@ export class AuctionService {
             queryResponse.englishAuctionAttribute.soft_close_duration,
           buyout_price: queryResponse.englishAuctionAttribute.buyout_price,
           winning_bid: queryResponse.englishAuctionAttribute.winning_bid,
-          bids: queryResponse.englishAuctionAttribute.bids,
+          bids: queryResponse.englishAuctionAttribute.bids
         };
-      } else if (queryResponse.auctionType == 'dutch') {
+      } else if (queryResponse.auctionType == "dutch") {
         auctionResponse.DutchAuctionAttribute = {
           opening_price: queryResponse.dutchAuctionAttribute.opening_price,
           reserve_price: queryResponse.dutchAuctionAttribute.reserve_price,
@@ -49,7 +49,7 @@ export class AuctionService {
           round_duration: queryResponse.dutchAuctionAttribute.round_duration,
           start_datetime: queryResponse.dutchAuctionAttribute.start_datetime,
           start_timestamp: queryResponse.dutchAuctionAttribute.start_timestamp,
-          winning_bid: queryResponse.dutchAuctionAttribute.winning_bid,
+          winning_bid: queryResponse.dutchAuctionAttribute.winning_bid
         };
       }
       return auctionResponse;
@@ -65,7 +65,7 @@ export class AuctionService {
     if (queryParams.owner && queryParams.state) {
       queryResponse = await this.auction.find({
         seller: queryParams.owner,
-        state: queryParams.state,
+        state: queryParams.state
       });
     } else if (queryParams.state && !queryParams.owner) {
       queryResponse = await this.auction.find({ state: queryParams.state });
@@ -82,9 +82,9 @@ export class AuctionService {
         seller: queryResponse[i].seller,
         buyer: queryResponse[i].buyer,
         tokenContract: queryResponse[i].tokenContract,
-        state: queryResponse[i].state,
+        state: queryResponse[i].state
       };
-      if (queryResponse[i].auctionType == 'english') {
+      if (queryResponse[i].auctionType == "english") {
         auctionResponse.EnglishAuctionAttribute = {
           opening_price: queryResponse[i].englishAuctionAttribute.opening_price,
           min_increment: queryResponse[i].englishAuctionAttribute.min_increment,
@@ -98,9 +98,9 @@ export class AuctionService {
             queryResponse[i].englishAuctionAttribute.soft_close_duration,
           buyout_price: queryResponse[i].englishAuctionAttribute.buyout_price,
           winning_bid: queryResponse[i].englishAuctionAttribute.winning_bid,
-          bids: queryResponse[i].englishAuctionAttribute.bids,
+          bids: queryResponse[i].englishAuctionAttribute.bids
         };
-      } else if (queryResponse[i].auctionType == 'dutch') {
+      } else if (queryResponse[i].auctionType == "dutch") {
         auctionResponse.DutchAuctionAttribute = {
           opening_price: queryResponse[i].dutchAuctionAttribute.opening_price,
           reserve_price: queryResponse[i].dutchAuctionAttribute.reserve_price,
@@ -109,7 +109,7 @@ export class AuctionService {
           start_datetime: queryResponse[i].dutchAuctionAttribute.start_datetime,
           start_timestamp:
             queryResponse[i].dutchAuctionAttribute.start_timestamp,
-          winning_bid: queryResponse[i].dutchAuctionAttribute.winning_bid,
+          winning_bid: queryResponse[i].dutchAuctionAttribute.winning_bid
         };
       }
       auctionOutput.push(auctionResponse);

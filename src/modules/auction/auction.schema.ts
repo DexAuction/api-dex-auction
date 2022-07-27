@@ -1,18 +1,18 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { DutchAuctionAttribute } from './DutchAuctionAttribute';
-import { EnglishAuctionAttribute } from './EnglishAuctionAttribute';
-import { SealedBidAuctionAttribute } from './SealedBidAuctionAttribute';
-import { VickeryAuctionAttribute } from './VickeryAuctionAttribute';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
+import { DutchAuctionAttribute } from "./DutchAuctionAttribute";
+import { EnglishAuctionAttribute } from "./EnglishAuctionAttribute";
+import { SealedBidAuctionAttribute } from "./SealedBidAuctionAttribute";
+import { VickeryAuctionAttribute } from "./VickeryAuctionAttribute";
 export type AuctionDocument = Auction & Document;
-@Schema({ collection: 'auctions' })
+@Schema({ collection: "auctions" })
 export class Auction {
   @Prop({ required: true, unique: true })
   auctionId: Number;
 
   @Prop({
     required: true,
-    enum: ['fpl', 'dutch', 'english', 'sealed-bid', 'vickery'],
+    enum: ["fpl", "dutch", "english", "sealed-bid", "vickery"]
   })
   auctionType: String;
 
@@ -46,28 +46,28 @@ export class Auction {
   @Prop({
     required: true,
     enum: [
-      'NOT-STARTED',
-      'ONGOING',
-      'SUCCESSFULLY-COMPLETED',
-      'CANCELLED',
-      'EXPIRED',
-    ],
+      "NOT-STARTED",
+      "ONGOING",
+      "SUCCESSFULLY-COMPLETED",
+      "CANCELLED",
+      "EXPIRED"
+    ]
   })
   state: String;
 
   @Prop({
     type: Object,
     required: function() {
-      return this.auctionType === 'english';
-    },
+      return this.auctionType === "english";
+    }
   })
   englishAuctionAttribute?: EnglishAuctionAttribute;
 
   @Prop({
     type: Object,
     required: function() {
-      return this.auctionType === 'dutch';
-    },
+      return this.auctionType === "dutch";
+    }
   })
   dutchAuctionAttribute?: DutchAuctionAttribute;
 
